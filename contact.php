@@ -1,0 +1,120 @@
+<?php
+$active = "Contacto";
+include('db.php');
+include("functions.php");
+include("header.php");
+?>
+
+<!-- Sección de Migas de Pan -->
+<div class="breacrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-text">
+                    <a href="index.php"><i class="fa fa-home"></i> Inicio</a>
+                    <span>Contacto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin Migas de Pan -->
+
+<!-- Sección de Contacto -->
+<section class="contact-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="contact-title">
+                    <h4>Contáctanos</h4>
+                    <p>Tu pasión es nuestra satisfacción.</p>
+                </div>
+                <div class="contact-widget">
+                    <div class="cw-item">
+                        <div class="ci-icon">
+                            <i class="ti-location-pin"></i>
+                        </div>
+                        <div class="ci-text">
+                            <span>Dirección:</span>
+                            <p>Bogotá, Av. Chiminangos, local apt 2 local C</p>
+                        </div>
+                    </div>
+                    <div class="cw-item">
+                        <div class="ci-icon">
+                            <i class="ti-mobile"></i>
+                        </div>
+                        <div class="ci-text">
+                            <span>Teléfono:</span>
+                            <p>+57 3042256789</p>
+                        </div>
+                    </div>
+                    <div class="cw-item">
+                        <div class="ci-icon">
+                            <i class="ti-email"></i>
+                        </div>
+                        <div class="ci-text">
+                            <span>Correo electrónico:</span>
+                            <p>InfernoColombia.@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 offset-lg-1">
+
+                <div class="contact-form">
+                    <div class="leave-comment">
+                        <h4>Déjanos un mensaje</h4>
+                        <p>Uno de nuestros asesores se comunicará contigo para resolver tus dudas.</p>
+                        <form action="contact.php" class="comment-form" method="POST">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <input type="text" placeholder="Tu nombre" class="form-control" name="name" required>
+                                </div>
+                                <div class="col-lg-6">
+                                    <input type="email" placeholder="Tu correo electrónico" class="form-control" name="email" required>
+                                </div>
+                                <div class="col-lg-12">
+                                    <input type="text" placeholder="Asunto del mensaje" class="form-control" name="subject" required>
+                                </div>
+                                <div class="col-lg-12">
+                                    <textarea placeholder="Tu mensaje" class="form-control" name="message" required></textarea>
+                                    <button class="site-btn" name="submit">Enviar mensaje</button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <?php
+                        if (isset($_POST['submit'])) {
+                            $user_name = $_POST['name'];
+                            $user_email = $_POST['email'];
+                            $user_subject = $_POST['subject'];
+                            $user_msg = $_POST['message'];
+
+                            $correo_receptor = 'InfernoColombia.@gmail.com';
+
+                            // Enviar el correo
+                            mail($correo_receptor, $user_subject, "De: $user_name <$user_email>\n\n$user_msg");
+                            
+                            echo "
+                            <script>
+                                bootbox.alert({
+                                    message: '¡Tu mensaje ha sido enviado exitosamente!',
+                                    backdrop: true
+                                });
+                            </script>";
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Fin Sección de Contacto -->
+
+<?php
+include('footer.php');
+?>
+
+</body>
+</html>
